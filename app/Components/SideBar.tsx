@@ -36,7 +36,7 @@ const SideBar = () => {
     },
   ];
   return (
-    <div className="bg-gray-200" >
+    <div className="bg-gray-200 h-full" >
       <div className="p-2">
         <div className="flex flex-row w-56 p-2 h-9 bg-zinc-300 rounded-lg">
           <div className="flex flex-row items-center">
