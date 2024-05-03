@@ -1,68 +1,37 @@
-'use client'
-import React, { useState } from 'react';
-import InputField from '../../Components/InputField';
-import Button from '../../Components/Button';
+import React from 'react';
+import PartnerForm from '../../Components/PartnerForm';
+import Link from 'next/link';
+import { Breadcrumbs, Typography } from '@mui/material';
+import {Button, ButtonGroup} from "@nextui-org/button";
 
-const CreatePartnerPage: React.FC = () => {
-  const [partnerId, setPartnerId] = useState('');
-  const [partnerName, setPartnerName] = useState('');
-  const [partnerEmail, setPartnerEmail] = useState('');
-  const [partnerMobileNumber, setPartnerMobileNumber] = useState('');
-  const [partnerCountry, setPartnerCountry] = useState('');
-  // Add states for other input fields here
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Implement form submission logic here
+const CreatePartnerProfilePage = () => {
+  const handleSubmit = (partnerData: any) => {
+    // Submit partner data to backend
+    console.log('Partner data:', partnerData);
+    // You can use Axios or Fetch API to make a POST request to your backend endpoint
   };
 
   return (
-    <div className='my-5 place-content-center'>
-      <div className='my-2 ml-24'>
-      <h1>Create Partner</h1> 
+   <main className="flex-1 flex flex-col bg-gray-100 transition duration-500 ease-in-out overflow-y-auto p-1">  
+    <div className='p-3 justify-betweens'>
+    <Breadcrumbs aria-label="breadcrumb" >
+        <Link color="inherit" href="/">
+          Dashboard
+        </Link>
+        <Link color="inherit" href="/">
+          Partners
+        </Link>
+        <Typography color="text.primary">Create Partner Profiles</Typography>
+      </Breadcrumbs>
       </div>
-      <div className='mb-3'>
-      <h1>Partner Information</h1>
+      <h1 className="text-2xl font-bold mb-4 pl-3">Create Partner Profile</h1>
+      <div className='flex '>
+      <div className=" flex justify-center w-full">
+        <PartnerForm />
+        </div> 
       </div>
-      <form onSubmit={handleSubmit}>
-       <InputField
-          label="Partner ID"
-          value={partnerId}
-          onChange={(e) => setPartnerId(e.target.value)}
-          error={""}
-        />
-        <InputField
-          label="Partner Name"
-          value={partnerName}
-          onChange={(e) => setPartnerName(e.target.value)}
-          error={""}
-        />
-        <InputField
-          label="Partner Email"
-          value={partnerEmail}
-          onChange={(e) => setPartnerEmail(e.target.value)}
-          error={""}
-        />
-        <div className='5'>Contact Information</div>
-        <InputField
-          label="Mobile number"
-          value={partnerMobileNumber}
-          onChange={(e) => setPartnerMobileNumber(e.target.value)}
-          error={""}
-        />
-        <InputField
-          label="Country"
-          value={partnerCountry}
-          onChange={(e) => setPartnerCountry(e.target.value)}
-          error={""}
-        />
-        <div>
-          <Button type="submit">Submit</Button>
-          <Button type="button" onClick={() => {}}>Cancel</Button>
-        </div>
-      </form>
-    </div>
+    </main>
   );
 };
 
-export default CreatePartnerPage;
+export default CreatePartnerProfilePage;

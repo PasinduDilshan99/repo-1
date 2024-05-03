@@ -26,7 +26,7 @@ export default function RootLayout({
         <Header username={username} />
         <div className=" flex flex-row flex-1 ease-in-out overflow-y-auto">
           <SideBar />
-          <div className="">{children}</div>
+          <div className="w-full">{children}</div>
         </div>
         <Footer />
       </div>
