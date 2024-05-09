@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import InfoIcon from '@mui/icons-material/Info';
 
 interface InputFieldProps {
@@ -6,11 +6,18 @@ interface InputFieldProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string | null; // Error can be a string or null
+  infoMessage?: string; // Information message content
 }
 
-const InputField: React.FC<InputFieldProps> = ({ label, value, onChange, error }) => {
+const InputField: React.FC<InputFieldProps> = ({ label, value, onChange, error, infoMessage }) => {
+  const [showInfoMessage, setShowInfoMessage] = useState(false);
+
+  const toggleInfoMessage = () => {
+    setShowInfoMessage(!showInfoMessage);
+  };
+
   return (
-    <div className="w-full mb-4 flex px-20">
+    <div className="w-full mb-3 flex px-20">
       <div className='w-48 mr-4'>
         <label className="block text-gray-700">{label}</label>
       </div>
@@ -23,8 +30,16 @@ const InputField: React.FC<InputFieldProps> = ({ label, value, onChange, error }
           value={value}
           onChange={onChange}
         />
+        <InfoIcon 
+          className="ml-2 text-gray-500 hover:bg-neutral-300 cursor-pointer" 
+          onClick={toggleInfoMessage} 
+        />
+        {showInfoMessage && infoMessage && (
+          <p className="text-gray-500 text-sm w-40 p-1">
+            {infoMessage}
+          </p>
+        )}
         {error && <p className="text-red-500 text-sm w-40 p-1">{error}</p>}
-        <InfoIcon className="ml-2 text-gray-500 hover:bg-neutral-300" />
       </div>
     </div>
   );

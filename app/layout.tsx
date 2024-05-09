@@ -17,7 +17,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const username: string = "abc";
+  const username: string = "Ajith Indika";
   return (
     <html lang="en">
     <body >

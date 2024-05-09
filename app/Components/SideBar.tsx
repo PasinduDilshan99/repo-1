@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+'use client'
+import React, { useEffect, useState } from "react";
 import SideBarComponent from "./SideBarComponent";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupIcon from "@mui/icons-material/Group";
@@ -27,7 +27,6 @@ const SideBar = () => {
       Actions: ["Update User", "Create User"],
       icon: PersonIcon,
     },
-
     {
       id: 4,
       name: "Access Permission",
@@ -35,12 +34,32 @@ const SideBar = () => {
       icon: ManageAccountsIcon,
     },
   ];
+
+  const [sidebarHeight, setSidebarHeight] = useState("100vh");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const scrollTop = window.scrollY;
+      const newHeight = windowHeight - scrollTop;
+      setSidebarHeight(`${newHeight}px`);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="bg-gray-200 h-full" >
+    <div
+      className="bg-gray-200"
+      style={{ height: sidebarHeight, overflowY: "auto" }}
+    >
       <div className="p-2">
         <div className="flex flex-row w-56 p-2 h-9 bg-zinc-300 rounded-lg">
           <div className="flex flex-row items-center">
-            <DashboardIcon/>
+            <DashboardIcon />
           </div>
           <div className="flex flex-row items-center pl-2">Dashboard</div>
         </div>
