@@ -6,6 +6,8 @@ import { Button, ButtonGroup } from "@nextui-org/button";
 import router from 'next/router';
 import { useRouter } from 'next/navigation'
 
+const username: String = "h" ;
+
 const PartnerForm: React.FC = () => {
   const [partnerId, setPartnerId] = useState('');
   const [partnerName, setPartnerName] = useState('');
@@ -44,7 +46,16 @@ const PartnerForm: React.FC = () => {
     } else {
       setPartnerCountryError('');
     }
-
+    
+    const requestData = {
+      name: partnerName,
+      username: partnerUsername,
+      email: partnerEmail,
+      mobile_number: partnerMobileNumber,
+      country: partnerCountry,
+      createdAt: new Date().toISOString(), // Assuming createdAt is the current timestamp
+      createdBy: username, 
+    };
   };
    
 
