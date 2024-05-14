@@ -14,6 +14,7 @@ const PartnerForm: React.FC = () => {
   const [partnerMobileNumber, setPartnerMobileNumber] = useState('');
   const [partnerCountry, setPartnerCountry] = useState('');
   const [partnerNameError, setPartnerNameError] = useState('');
+  const [partnerUsernameError, setPartnerUsernameError] = useState('');
   const [partnerEmailError, setPartnerEmailError] = useState('');
   const [partnerMobileNumberError, setPartnerMobileNumberError] = useState('');
   const [partnerCountryError, setPartnerCountryError] = useState('');
@@ -25,6 +26,13 @@ const PartnerForm: React.FC = () => {
     } else {
       // Implement form submission logic here
       setPartnerNameError('');
+      // Proceed with form submission
+    }
+    if (!partnerUsername.trim()) {
+      setPartnerUsernameError('Please enter a value for Partner Username');
+    } else {
+      // Implement form submission logic here
+      setPartnerUsernameError('');
       // Proceed with form submission
     }
     if (!partnerEmail.trim()) {
@@ -124,7 +132,7 @@ const PartnerForm: React.FC = () => {
             label="Partner Username"
             value={partnerUsername}
             onChange={(e: { target: { value: React.SetStateAction<string> } }) => setPartnerUsername(e.target.value)}
-            error={partnerNameError} 
+            error={partnerUsernameError} 
             infoMessage='Must be at least 6 characters long and less than 20 characters'
           />
           <InputField
