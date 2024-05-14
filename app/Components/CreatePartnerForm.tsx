@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import InputField from '../Components/InputField';
+import InputField from './InputField';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import { Button, ButtonGroup } from "@nextui-org/button";
 import router from 'next/router';
@@ -20,7 +20,7 @@ const PartnerForm: React.FC = () => {
   const [partnerMobileNumberError, setPartnerMobileNumberError] = useState('');
   const [partnerCountryError, setPartnerCountryError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!partnerName.trim()) {
       setPartnerNameError('Please enter a value for Partner Name');
@@ -36,8 +36,10 @@ const PartnerForm: React.FC = () => {
     } else {
       setPartnerEmailError('');
     }
-    if (!partnerMobileNumberError.trim()) {
-      setPartnerMobileNumberError('Please enter a valid Contact Number');
+    if (!partnerMobileNumber.trim()) {
+      setPartnerMobileNumberError('Please enter a value for Mobile Number');
+    } else if (!isValidMobileNumber(partnerMobileNumber.trim())) {
+      setPartnerMobileNumberError('Please enter a valid Mobile Number');
     } else {
       setPartnerMobileNumberError('');
     }
@@ -54,16 +56,44 @@ const PartnerForm: React.FC = () => {
       mobile_number: partnerMobileNumber,
       country: partnerCountry,
       createdAt: new Date().toISOString(), // Assuming createdAt is the current timestamp
-      createdBy: username, 
+      createdBy: 'frontend', // You can set this to whatever appropriate value
     };
+  
+    try {
+      const response = await fetch('http://localhost:8080/partner/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      });
+  
+      const responseData = await response.json();
+
+      if (response.ok) {
+        alert(responseData.message); 
+        router.push('/');
+      } else {
+        alert(responseData.message); 
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while processing your request. Please try again later.');
+    }
   };
    
 
   const isValidEmail = (email: string) => {
-    // Regular expression for validating email addresses
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
+
+  const isValidMobileNumber = (mobileNumber: string) => {
+    // Regular expression for validating a 10-digit mobile number
+    const mobileNumberRegex = /^\d{10}$/;
+    return mobileNumberRegex.test(mobileNumber);
+  };
+  
 
   const router = useRouter()
   return (

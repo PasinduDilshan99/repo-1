@@ -1,5 +1,5 @@
 import React from 'react';
-import PartnerForm from '../../Components/PartnerForm';
+import PartnerForm from '../../Components/CreatePartnerForm';
 import Link from 'next/link';
 import { Breadcrumbs, Typography } from '@mui/material';
 import {Button, ButtonGroup} from "@nextui-org/button";
